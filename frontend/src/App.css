@@ -1,0 +1,256 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0f1117;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: #1a1d2e;
+  border-bottom: 1px solid #2a2d3e;
+  padding: 24px 32px;
+}
+
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #4f8ef7;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.main {
+  flex: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 40px 32px;
+}
+
+.search-section {
+  margin-bottom: 40px;
+}
+
+.search-box {
+  display: flex;
+  gap: 12px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 14px 18px;
+  background: #1a1d2e;
+  border: 1px solid #2a2d3e;
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: #4f8ef7;
+}
+
+.search-input::placeholder {
+  color: #4b5563;
+}
+
+.search-btn {
+  padding: 14px 28px;
+  background: #4f8ef7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.search-btn:hover:not(:disabled) {
+  background: #3b7de8;
+}
+
+.search-btn:disabled {
+  background: #2a2d3e;
+  color: #4b5563;
+  cursor: not-allowed;
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 20px;
+  background: #1a1d2e;
+  border-radius: 8px;
+  border: 1px solid #2a2d3e;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #2a2d3e;
+  border-top-color: #4f8ef7;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-steps p {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.loading-sub {
+  font-size: 12px !important;
+  color: #4f8ef7 !important;
+  margin-top: 4px;
+}
+
+.error-box {
+  padding: 16px 20px;
+  background: #1f1515;
+  border: 1px solid #7f1d1d;
+  border-radius: 8px;
+  color: #f87171;
+  margin-bottom: 24px;
+}
+
+.results-section {
+  background: #1a1d2e;
+  border: 1px solid #2a2d3e;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #2a2d3e;
+}
+
+.results-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #34d399;
+  background: #064e3b20;
+  border: 1px solid #34d39940;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #2a2d3e;
+  padding: 0 24px;
+}
+
+.tab {
+  padding: 14px 20px;
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: #e0e0e0;
+}
+
+.tab.active {
+  color: #4f8ef7;
+  border-bottom-color: #4f8ef7;
+}
+
+.tab-content {
+  padding: 24px;
+}
+
+.report-content {
+  line-height: 1.8;
+  font-size: 15px;
+  color: #d1d5db;
+}
+
+.report-content h1,
+.report-content h2,
+.report-content h3 {
+  color: #e0e0e0;
+  margin: 20px 0 10px;
+}
+
+.report-content p {
+  margin-bottom: 12px;
+}
+
+.report-content ul,
+.report-content ol {
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+.report-content li {
+  margin-bottom: 6px;
+}
+
+.report-content strong {
+  color: #e0e0e0;
+}
+
+.report-content hr {
+  border: none;
+  border-top: 1px solid #2a2d3e;
+  margin: 20px 0;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: #374151;
+  font-size: 13px;
+  border-top: 1px solid #1a1d2e;
+}
