@@ -12,6 +12,14 @@ function App() {
 
   const runAnalysis = async () => {
     if (!company.trim()) return;
+    if (company.trim().length < 2) {
+      setError("Company name must be at least 2 characters.");
+      return;
+    }
+    if (company.trim().length > 100) {
+      setError("Company name is too long. Max 100 characters.");
+      return;
+    }
     setLoading(true);
     setResult(null);
     setError(null);
@@ -84,7 +92,14 @@ function App() {
               <h2 className="results-title">
                 Due Diligence Report: {result.company}
               </h2>
-              <div className="badge">Zero Data Egress</div>
+              <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                {result.duration_seconds && (
+                  <div className="badge" style={{ color: "#9ca3af", borderColor: "#2a2d3e" }}>
+                    {result.duration_seconds}s
+                  </div>
+                )}
+                <div className="badge">Zero Data Egress</div>
+              </div>
             </div>
 
             <div className="tabs">
