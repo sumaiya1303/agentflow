@@ -214,7 +214,7 @@ Specialization. Each agent has a focused system prompt optimized for its task. A
 
 ---
 
-## Interview Talking Points
+## Key Talking Points
 
 **What problem does this solve?**
 Financial due diligence is time-intensive and expensive. This tool automates the initial research and risk assessment phase for finance professionals who need fast, private analysis.
