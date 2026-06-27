@@ -2,7 +2,9 @@ from langchain_ollama import OllamaLLM
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-llm = OllamaLLM(model="llama3")
+import os
+OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+llm = OllamaLLM(model="llama3", base_url=OLLAMA_HOST)
 
 reporter_prompt = PromptTemplate(
     input_variables=["company_name", "research", "analysis"],
