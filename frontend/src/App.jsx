@@ -9,6 +9,7 @@ function App() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("report");
+  const [exporting, setExporting] = useState(false);
 
   const runAnalysis = async () => {
     if (!company.trim()) return;
@@ -33,6 +34,29 @@ function App() {
       setError("Analysis failed. Make sure the backend is running.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const exportPDF = async () => {
+    if (!result) return;
+    setExporting(true);
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/export-pdf",
+        { company_name: result.company },
+        { responseType: "blob" }
+      );
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `agentflow_${result.company}_report.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      setError("PDF export failed. Make sure the backend is running.");
+    } finally {
+      setExporting(false);
     }
   };
 
@@ -99,6 +123,14 @@ function App() {
                   </div>
                 )}
                 <div className="badge">Zero Data Egress</div>
+                <button
+                  className="search-btn"
+                  onClick={exportPDF}
+                  disabled={exporting}
+                  style={{ padding: "6px 16px", fontSize: "13px" }}
+                >
+                  {exporting ? "Exporting..." : "Export PDF"}
+                </button>
               </div>
             </div>
 

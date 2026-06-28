@@ -5,6 +5,9 @@ import time
 import logging
 from agents.researcher import run_researcher
 from pipeline import run_pipeline
+from fastapi.responses import StreamingResponse
+from utils.pdf_generator import generate_pdf
+from io import BytesIO
 
 # Set up logging so you can see what is happening
 logging.basicConfig(level=logging.INFO)
@@ -89,3 +92,38 @@ def full_pipeline(request: CompanyRequest):
     except Exception as e:
         logger.error(f"Pipeline failed for {request.company_name}: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Pipeline failed: {str(e)}")
+    
+@app.post("/export-pdf")
+def export_pdf(request: CompanyRequest):
+    try:
+        company = request.validate_input()
+        logger.info(f"PDF export request for: {company}")
+
+        start = time.time()
+        result = run_pipeline(company)
+        duration = round(time.time() - start, 2)
+
+        if not result.get("report"):
+            raise HTTPException(status_code=500, detail="Pipeline returned empty report")
+
+        pdf_bytes = generate_pdf(
+            company=company,
+            research=result["research"],
+            analysis=result["analysis"],
+            report=result["report"],
+            duration=duration
+        )
+
+        return StreamingResponse(
+            BytesIO(pdf_bytes),
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f"attachment; filename=agentflow_{company.replace(' ', '_')}_report.pdf"
+            }
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"PDF export failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"PDF export failed: {str(e)}")
